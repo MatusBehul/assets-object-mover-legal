@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assets Object Mover for Jira</title>
+  <meta name="description" content="How to use Assets Object Mover: move Jira Assets objects to another object type or schema, keeping their links and Jira issues.">
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="">
+    <a href="./">Assets Object Mover</a>
+    <nav>
+      <a href="./#support">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Assets Object Mover for Jira</h1>
+    <p class="lead">Move Assets objects to another object type or schema. Values come along, and every object and Jira issue that pointed at them is updated.</p>
+
+    <h2 id="start">Getting started</h2>
+    <p>Install the app from the Atlassian Marketplace on a Jira site with Jira Service Management and Assets. There is nothing to set up. Open <strong>Jira settings → Apps → Assets Object Mover</strong>.</p>
+    <p>The app works as you, with your own Assets permissions. To move objects you need to be able to edit objects in both schemas, and to update linked Jira issues you need to be able to edit those issues.</p>
+
+    <h2 id="move">Move objects</h2>
+    <ol>
+      <li><strong>Objects to move.</strong> Choose the schema and object type. To move only some of them, type an AQL filter, such as <code>Status = "Retired"</code>. The page shows how many objects match.</li>
+      <li><strong>Where they go.</strong> Choose the target schema and object type, and whether to <strong>move</strong> or <strong>copy</strong>.</li>
+      <li><strong>Match the attributes.</strong> Attributes with the same name are matched for you. Change any match, or type a value that every moved object gets. Required attributes must have a match or a value. Attributes that cannot hold each other's values, such as text and a date, can't be matched; anything can go into a text attribute as plain text.</li>
+      <li><strong>Run.</strong> Click <strong>Move 1 object to try</strong> first, check the result, then move the rest.</li>
+    </ol>
+    <p>Keep the page open while it runs. If you close it, the run pauses and carries on when you open the page again. When it finishes, <strong>Download the log</strong> gives a CSV of every old key and its new key.</p>
+
+    <h2 id="what">What a move does</h2>
+    <p>For each object, the app:</p>
+    <ol>
+      <li>creates a new object in the target type with the matched values;</li>
+      <li>points every object that referenced the original at the new one;</li>
+      <li>updates every Jira issue whose Assets field held the original;</li>
+      <li>deletes the original.</li>
+    </ol>
+    <p>A <strong>copy</strong> does only the first step and leaves the originals and their links alone. In both, links between objects moved in the same run follow the new objects.</p>
+    <p class="note">The app never deletes an original that something still needs. If another object's reference attribute only accepts the old object type, or an update fails, the original is kept and the log says why. Check it and delete it by hand.</p>
+
+    <h2 id="faq">Questions</h2>
+    <h3>Do object keys stay the same?</h3>
+    <p>No. In Assets a key belongs to its object type and schema, so the new object gets a new key. The log lists both.</p>
+    <h3>What doesn't move?</h3>
+    <p>Comments, history, attachments and avatars stay with the original object, because Assets has no way to move them. The values of attributes you don't match aren't copied; the page lists them before you start.</p>
+    <h3>Are watchers emailed when a Jira issue is updated?</h3>
+    <p>The app asks Jira not to send notifications for these updates. If you're not allowed to turn notifications off, the update is made as a normal edit.</p>
+    <h3>Can I undo a move?</h3>
+    <p>Move the objects back with the app. Try one object first to check the attribute matches.</p>
+    <h3>Does the app send my data anywhere?</h3>
+    <p>No. It runs on Atlassian's Forge platform and has no servers of its own. See the <a href="privacy.html">privacy policy</a>.</p>
+
+    <h2 id="support">Support</h2>
+    <p>Use the <strong>Get support</strong> link on the app's Atlassian Marketplace listing. Tell us what you tried and copy any message the app showed. We answer in English, usually within two working days.</p>
+  </main>
+
+  <footer>
+    Assets Object Mover for Jira is made by William Wadby, s. r. o. · <a href="privacy.html">Privacy policy</a> · <a href="terms.html">Terms of service</a>
+  </footer>
+</body>
+</html>
